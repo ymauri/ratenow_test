@@ -49,5 +49,5 @@ Contiene las clases que representa cada objeto del json y están organizadas as�
 Cada clase se inicializa con sus correspondientes atributos hasta haber parseado el json completamente. Por tanto a partir de un objeto de QuestionnaireClass puede accederse a la estructura completa de la data del endpoint.
 he puesto los atributos como públicos por cuestión de tiempo y acceder a ellos desde la vista sin problema.
 
-En la vista he aprovechado la estructura de clases para iterar sobre los objetos y sus relaciones y conformar el árbol del json. El css de la vista no lo he hecho yo. Lo he tomado de github para no liarme.
+En la vista he aprovechado la estructura de clases para iterar sobre los objetos y sus relaciones y conformar el árbol del json.
 

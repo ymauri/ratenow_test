@@ -1,62 +1,53 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+## Prueba de programación
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+El objetivo de la prueba es implementar un servicio web que muestre los resultados de una
+llamada típica a nuestro sistema. Puedes montar el proyecto en local, usando por ejemplo
+“XAMPP”, pero si dispones de un servidor propio puedes desarrollar contra él sin
+problemas.
+La prueba consta de 4 apartados simples, está descrita en la siguiente página y consta de 4
+puntos. Lee los 4 puntos antes de empezar a codificar. En el último de los puntos se
+define que debe verse en el la página web y ello afecta a cómo deberás montar los puntos
+anteriores.
 
-## About Laravel
+Evaluaremos la prueba con dos criterios, ejecución y código.
+1. Para la ejecución procederemos bien instalando el proyecto que entregues contra
+una instancia local de “XAMPP” o bien haciendo la llamada a la URL que nos
+indiques.
+2. Para la parte de código (la más importante) esperamos que nos envíes los fuentes
+del proyecto. Lo que más valoramos la limpieza y la calidad del código. Es más
+importante que sea fácilmente legible (y por lo tanto mantenible) que no que sea
+especialmente óptimo.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+La página que vas a crear va a atacar contra una máquina de test, con un usuario y clave
+que solo servirán para esta ocasión y que se elimina cada pocos días.
+La prueba no tiene un tiempo específico para ser realizada. Invierte el que necesites.
+Para evitar que algún problema puntual te deje bloqueado en un punto hemos incluido un
+anexo (anexo 2) con “soluciones”, es decir con los datos que obtendrías en cada punto si la
+ejecución fuera correcta, con ello si un punto no te funciona debidamente podrás pasar al
+siguiente para seguir con la prueba.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Mi solución
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Para la solución he utilizado Laravel y he intentado algo que permita facilitar las tareas de mantenimiento y actualización del framework así como la incorporación de nuevas interacciones con Endpoints a largo plazo.
+De igual modo he intentado usar funciones nativas del lenguaje y no basar mi solución en las características de Laravel. 
+Dentro de la estructura de Laravel8  (específicamente dentro de app) he creado los siguientes directorios: 
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Estructura de clases
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+*Business/Parser*
 
-## Laravel Sponsors
+Se crea este directorio para incluir varios parsers de acuerdo con la fuente de datos seleccionada. En este caso solo tenemos Report593. Cada reporte tiene su propia clase de negocio que es la encargada de pedir los datos al servicio correspondiente y convertir la info del json en una estructura orientada a objetos.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+*Business/Parser/Classes*
 
-### Premium Partners
+Contiene las clases que representa cada objeto del json y están organizadas así:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
+<p align="center"><img src="https://github.com/ymauri/ratenow_test/raw/main/public/img/diagram.jpg" width="150"></p>
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Cada clase se inicializa con sus correspondientes atributos hasta haber parseado el json completamente. Por tanto a partir de un objeto de QuestionnaireClass puede accederse a la estructura completa de la data del endpoint.
+he puesto los atributos como públicos por cuestión de tiempo y acceder a ellos desde la vista sin problema.
 
-## Code of Conduct
+En la vista he aprovechado la estructura de clases para iterar sobre los objetos y sus relaciones y conformar el árbol del json. El css de la vista no lo he hecho yo. Lo he tomado de github para no liarme.
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
